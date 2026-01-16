@@ -429,213 +429,6 @@
             content: "\f28b"; /* pause icon */
         }
 
-        /* Gemini Chat Widget */
-        .gemini-chat-widget {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-
-        .gemini-toggle {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(45deg, #4285f4, #34a853, #fbbc05, #ea4335);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            border: 3px solid var(--bg-primary);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            animation: gradient-animation 4s ease infinite;
-            background-size: 400% 400%;
-        }
-
-        @keyframes gradient-animation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .gemini-toggle:hover {
-            transform: scale(1.1) rotate(10deg);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .gemini-toggle i {
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-
-        .gemini-chat-container {
-            position: absolute;
-            bottom: 70px;
-            right: 0;
-            width: 350px;
-            height: 500px;
-            background: var(--bg-card);
-            border-radius: 15px;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border-color);
-            display: none;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .gemini-chat-container.active {
-            display: flex;
-            animation: slideUp 0.3s ease;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .chat-header {
-            padding: 1rem;
-            background: var(--primary-color);
-            color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .chat-header h3 {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 0;
-        }
-
-        .chat-close {
-            background: none;
-            border: none;
-            color: white;
-            cursor: pointer;
-            font-size: 1.2rem;
-        }
-
-        .chat-messages {
-            flex: 1;
-            padding: 1rem;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .message {
-            padding: 10px 15px;
-            border-radius: 15px;
-            max-width: 80%;
-            word-wrap: break-word;
-        }
-
-        .message.user {
-            background: var(--primary-color);
-            color: white;
-            align-self: flex-end;
-            border-bottom-right-radius: 5px;
-        }
-
-        .message.assistant {
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            align-self: flex-start;
-            border-bottom-left-radius: 5px;
-        }
-
-        .message-image {
-            max-width: 200px;
-            max-height: 150px;
-            border-radius: 10px;
-            margin-top: 5px;
-        }
-
-        .chat-input-container {
-            padding: 1rem;
-            border-top: 1px solid var(--border-color);
-            display: flex;
-            gap: 10px;
-        }
-
-        .chat-input {
-            flex: 1;
-            padding: 10px 15px;
-            border: 1px solid var(--border-color);
-            border-radius: 25px;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .chat-input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-        }
-
-        .image-upload-btn,
-        .send-btn,
-        .clear-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: none;
-            background: var(--primary-color);
-            color: white;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .image-upload-btn:hover,
-        .send-btn:hover,
-        .clear-btn:hover {
-            background: var(--primary-dark);
-        }
-
-        .image-upload-input {
-            display: none;
-        }
-
-        .typing-indicator {
-            display: none;
-            padding: 10px 15px;
-            align-self: flex-start;
-        }
-
-        .typing-indicator.active {
-            display: flex;
-        }
-
-        .typing-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--text-secondary);
-            border-radius: 50%;
-            margin: 0 2px;
-            animation: typing 1.4s infinite;
-        }
-
-        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
-        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
-
-        @keyframes typing {
-            0%, 60%, 100% { transform: translateY(0); }
-            30% { transform: translateY(-10px); }
-        }
-
         /* Footer */
         footer {
             text-align: center;
@@ -664,19 +457,6 @@
             .play-btn {
                 margin-left: 0;
             }
-            
-            .gemini-chat-container {
-                width: 300px;
-                height: 450px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .gemini-chat-container {
-                width: calc(100vw - 40px);
-                right: -20px;
-                bottom: 80px;
-            }
         }
     </style>
 </head>
@@ -699,7 +479,7 @@
             <div class="header-content">
                 <div class="logo">
                     <i class="fas fa-user-circle"></i>
-                    <span>Chris Web</span>
+                    <span>INFORMATION</span>
                 </div>
                 <div class="theme-switch" id="themeSwitch">
                     <i class="fas fa-sun sun-icon"></i>
@@ -719,7 +499,7 @@
                 </div>
             </div>
             <div class="hero-content">
-                <h1>Christian.</h1>
+                <h1>Chris.</h1>
                 <p class="bio">"Dire gwapo pero waray pangarap"</p>
                 <div class="social-icons">
                     <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
@@ -738,20 +518,28 @@
             <h2 class="section-title">About Me</h2>
             <div class="cards-container">
                 <div class="card">
-                    <h3><i class="fas fa-gamepad"></i> Hobbies</h3>
-                    <p>• Playing MLBB & Acoustic Guitar</p>
+                    <h3><i class="fas fa-cake"></i> Birthday</h3>
+                    <p>December 06, ,2007</p>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-plus"></i> Age</h3>
+                    <p>18</p>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-gamepad"></i> Hobby & Routine</h3>
+                    <p>MLBB & Acoustic Guitar (Fingerstyle Guitarist)</p>
                 </div>
                 <div class="card">
                     <h3><i class="fas fa-briefcase"></i> Work Experience</h3>
-                    <p>• N/A</p>
+                    <p>N/A</p>
                 </div>
                 <div class="card">
                     <h3><i class="fas fa-seedling"></i> Dream Job</h3>
-                    <p>• Farmer in Japan</p>
+                    <p>Farmer in Japan</p>
                 </div>
                 <div class="card">
                     <h3><i class="fas fa-map-marker-alt"></i> Address</h3>
-                    <p>• Poblacion Dist. 1 Camansi Burauen, Leyte</p>
+                    <p>Poblacion District 1 Camansi Burauen, Leyte</p>
                 </div>
             </div>
         </section>
@@ -796,7 +584,8 @@
                     </button>
                 </div>
                 <audio id="musicPlayer" loop>
-                    <source src="https://zeta.123tokyo.xyz/get.php/b/e7/qHD61OR15r0.mp3?n=Stephen%20Speaks%20_%20Passenger%20Seat%20-%20The%20Official%20Music%20Video%20%2825th%20Anniversary%20Special%29&uT=R&uN=ZHVieWE%3D&h=orB27qGv822cqt30i2-y-A&s=1768594316&uT=R&uN=ZHVieWE%3D" type="audio/mpeg">
+                    <source src="https://zeta.123tokyo.xyz/get.php/b/e7/qHD61OR15r0.mp3?n=Stephen%20Speaks%20_%20Passenger%20Seat%20-%20The%20Official%20Music%20Video%20%2825th%20Anniversary%20Special%29&uT=R&uN=ZHVieWE%3D&h=orB27qGv822cqt30i2-y-A&s=1768594316&uT=R&uN=ZHVieWE%3D"
+  }" type="audio/mpeg">
                     Your browser does not support the audio element.
                 </audio>
             </div>
@@ -806,46 +595,10 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2024 Chris A. All rights reserved.</p>
+            <p>&copy; 2026 Chris A. All rights reserved.</p>
             <p>Made with <i class="fas fa-heart" style="color: #ef4444;"></i> from the heart</p>
         </div>
     </footer>
-
-    <!-- Gemini AI Chat Widget -->
-    <div class="gemini-chat-widget">
-        <div class="gemini-toggle" id="geminiToggle">
-            <i class="fas fa-robot"></i>
-        </div>
-        <div class="gemini-chat-container" id="geminiChat">
-            <div class="chat-header">
-                <h3><i class="fas fa-robot"></i> Gemini AI Assistant</h3>
-                <button class="chat-close" id="chatClose"><i class="fas fa-times"></i></button>
-            </div>
-            <div class="chat-messages" id="chatMessages">
-                <div class="message assistant">
-                    Hello! I'm Google Gemini AI. How can I help you today? You can send me images too!
-                </div>
-            </div>
-            <div class="typing-indicator" id="typingIndicator">
-                <div class="typing-dot"></div>
-                <div class="typing-dot"></div>
-                <div class="typing-dot"></div>
-            </div>
-            <div class="chat-input-container">
-                <input type="file" accept="image/*" class="image-upload-input" id="imageUpload">
-                <button class="image-upload-btn" id="imageUploadBtn" title="Upload Image">
-                    <i class="fas fa-image"></i>
-                </button>
-                <input type="text" class="chat-input" id="chatInput" placeholder="Ask me anything...">
-                <button class="send-btn" id="sendBtn">
-                    <i class="fas fa-paper-plane"></i>
-                </button>
-                <button class="clear-btn" id="clearChatBtn" title="Clear Chat">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </div>
-        </div>
-    </div>
 
     <script>
         // DOM Elements
@@ -856,41 +609,6 @@
         const greetingIcon = document.getElementById('greetingIcon');
         const playBtn = document.getElementById('playBtn');
         const musicPlayer = document.getElementById('musicPlayer');
-        
-        // Gemini Chat Elements
-        const geminiToggle = document.getElementById('geminiToggle');
-        const geminiChat = document.getElementById('geminiChat');
-        const chatClose = document.getElementById('chatClose');
-        const chatMessages = document.getElementById('chatMessages');
-        const chatInput = document.getElementById('chatInput');
-        const sendBtn = document.getElementById('sendBtn');
-        const imageUploadBtn = document.getElementById('imageUploadBtn');
-        const imageUpload = document.getElementById('imageUpload');
-        const clearChatBtn = document.getElementById('clearChatBtn');
-        const typingIndicator = document.getElementById('typingIndicator');
-
-        // Gemini API Configuration
-        const GEMINI_API_KEY = 'AIzaSyD4nCP2G-FeyKUirIYSajK6-IfmkuyBLQ8';
-        const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
-        
-        // Generate unique user ID
-        let userId = localStorage.getItem('gemini_user_id') || 'user_' + Math.random().toString(36).substr(2, 9);
-        localStorage.setItem('gemini_user_id', userId);
-        
-        // Load conversation from localStorage
-        let conversation = JSON.parse(localStorage.getItem(`gemini_conversation_${userId}`)) || [];
-        
-        // Initialize conversation with system message if empty
-        if (conversation.length === 0) {
-            conversation.push({
-                role: "user",
-                parts: [{ text: "You are Google Gemini AI assistant helping Chris A. on his profile website. Chris is from the Philippines, likes playing MLBB and guitar, dreams of being a farmer in Japan. Be friendly and helpful." }]
-            });
-            conversation.push({
-                role: "model",
-                parts: [{ text: "Hello! I'm Google Gemini AI, ready to help you with anything about Chris A.'s profile or anything else you'd like to know!" }]
-            });
-        }
 
         // Theme Switching
         themeSwitch.addEventListener('click', () => {
@@ -971,231 +689,13 @@
             }
         });
 
-        // Gemini Chat Functions
-        geminiToggle.addEventListener('click', () => {
-            geminiChat.classList.toggle('active');
-            if (geminiChat.classList.contains('active')) {
-                chatInput.focus();
-                loadChatMessages();
-            }
-        });
-
-        chatClose.addEventListener('click', () => {
-            geminiChat.classList.remove('active');
-        });
-
-        imageUploadBtn.addEventListener('click', () => {
-            imageUpload.click();
-        });
-
-        imageUpload.addEventListener('change', async (e) => {
-            if (e.target.files.length > 0) {
-                const file = e.target.files[0];
-                await uploadAndSendImage(file);
-                e.target.value = ''; // Reset file input
-            }
-        });
-
-        async function uploadAndSendImage(file) {
-            // Convert image to base64
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            
-            reader.onload = async () => {
-                const base64Image = reader.result.split(',')[1];
-                
-                // Add image to conversation
-                addMessage('user', 'Image uploaded', base64Image);
-                
-                // Send to Gemini
-                await sendToGemini('Describe this image', base64Image);
-            };
-        }
-
-        function addMessage(role, text, imageBase64 = null) {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${role}`;
-            
-            if (imageBase64) {
-                messageDiv.innerHTML = `
-                    <p>${text}</p>
-                    <img src="data:image/jpeg;base64,${imageBase64}" class="message-image" alt="Uploaded image">
-                `;
-            } else {
-                messageDiv.textContent = text;
-            }
-            
-            chatMessages.appendChild(messageDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-            
-            // Save to conversation
-            const messageData = {
-                role: role === 'user' ? 'user' : 'model',
-                parts: [{ text: text }]
-            };
-            
-            if (imageBase64 && role === 'user') {
-                messageData.parts.push({
-                    inline_data: {
-                        mime_type: 'image/jpeg',
-                        data: imageBase64
-                    }
-                });
-            }
-            
-            conversation.push(messageData);
-            saveConversation();
-        }
-
-        async function sendToGemini(message, imageBase64 = null) {
-            try {
-                // Show typing indicator
-                typingIndicator.classList.add('active');
-                
-                // Prepare request data
-                const contents = conversation.map(msg => ({
-                    role: msg.role,
-                    parts: msg.parts
-                }));
-                
-                // Add current message
-                const currentParts = [{ text: message }];
-                if (imageBase64) {
-                    currentParts.push({
-                        inline_data: {
-                            mime_type: 'image/jpeg',
-                            data: imageBase64
-                        }
-                    });
-                }
-                
-                contents.push({
-                    role: "user",
-                    parts: currentParts
-                });
-                
-                const response = await fetch(GEMINI_API_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        contents: contents,
-                        generationConfig: {
-                            temperature: 0.7,
-                            maxOutputTokens: 1000,
-                        }
-                    })
-                });
-                
-                const data = await response.json();
-                
-                // Hide typing indicator
-                typingIndicator.classList.remove('active');
-                
-                if (data.error) {
-                    throw new Error(data.error.message);
-                }
-                
-                const geminiResponse = data.candidates?.[0]?.content?.parts?.[0]?.text || "I apologize, but I couldn't generate a response.";
-                
-                // Add Gemini's response
-                addMessage('assistant', geminiResponse);
-                
-                // Save to conversation
-                conversation.push({
-                    role: "model",
-                    parts: [{ text: geminiResponse }]
-                });
-                saveConversation();
-                
-            } catch (error) {
-                typingIndicator.classList.remove('active');
-                console.error('Gemini API Error:', error);
-                addMessage('assistant', `Sorry, I encountered an error: ${error.message}`);
-            }
-        }
-
-        function saveConversation() {
-            // Keep only last 20 messages to avoid localStorage limits
-            if (conversation.length > 20) {
-                conversation = conversation.slice(-20);
-            }
-            localStorage.setItem(`gemini_conversation_${userId}`, JSON.stringify(conversation));
-        }
-
-        function loadChatMessages() {
-            chatMessages.innerHTML = '';
-            
-            // Load all messages except the system prompt
-            for (let i = 2; i < conversation.length; i++) {
-                const msg = conversation[i];
-                if (msg.role === 'user') {
-                    const text = msg.parts[0]?.text || '';
-                    const hasImage = msg.parts.length > 1 && msg.parts[1]?.inline_data;
-                    
-                    if (hasImage) {
-                        addMessage('user', text, msg.parts[1].inline_data.data);
-                    } else {
-                        addMessage('user', text);
-                    }
-                } else if (msg.role === 'model') {
-                    addMessage('assistant', msg.parts[0]?.text || '');
-                }
-            }
-        }
-
-        function clearChat() {
-            conversation = [
-                {
-                    role: "user",
-                    parts: [{ text: "You are Google Gemini AI assistant helping Chris A. on his profile website. Chris is from the Philippines, likes playing MLBB and guitar, dreams of being a farmer in Japan. Be friendly and helpful." }]
-                },
-                {
-                    role: "model",
-                    parts: [{ text: "Hello! I'm Google Gemini AI, ready to help you with anything about Chris A.'s profile or anything else you'd like to know!" }]
-                }
-            ];
-            saveConversation();
-            chatMessages.innerHTML = `
-                <div class="message assistant">
-                    Hello! I'm Google Gemini AI. How can I help you today? You can send me images too!
-                </div>
-            `;
-        }
-
-        // Event Listeners for Chat
-        sendBtn.addEventListener('click', async () => {
-            const message = chatInput.value.trim();
-            if (message) {
-                addMessage('user', message);
-                chatInput.value = '';
-                await sendToGemini(message);
-            }
-        });
-
-        chatInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                sendBtn.click();
-            }
-        });
-
-        clearChatBtn.addEventListener('click', clearChat);
-
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             showGreeting();
             
-            // Load chat messages on page load
-            loadChatMessages();
-            
-            // Auto-play music (optional)
-            // musicPlayer.play().then(() => {
-            //     playBtn.classList.add('playing');
-            // }).catch(err => {
-            //     console.log("Autoplay prevented:", err);
-            // });
+            // Auto-play music (commented out to respect user preference)
+            // musicPlayer.play();
+            // playBtn.classList.add('playing');
         });
 
         // Handle audio events
@@ -1212,13 +712,6 @@
             if (e.target === greetingModal) {
                 greetingModal.classList.remove('active');
                 document.querySelector('.modal').classList.remove('active');
-            }
-        });
-
-        // Close chat when clicking outside (on mobile)
-        document.addEventListener('click', (e) => {
-            if (!geminiChat.contains(e.target) && !geminiToggle.contains(e.target) && geminiChat.classList.contains('active')) {
-                geminiChat.classList.remove('active');
             }
         });
     </script>
