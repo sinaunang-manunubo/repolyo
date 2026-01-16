@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f3f4f6;
+            --bg-card: #ffffff;
+            --border-color: #e5e7eb;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --transition: all 0.3s ease;
+        }
+
+        .dark-mode {
+            --primary-color: #60a5fa;
+            --primary-dark: #3b82f6;
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --bg-card: #1f2937;
+            --border-color: #374151;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: var(--transition);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--bg-primary);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 2rem;
+        }
+
+        .theme-switch {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            width: 60px;
+            height: 30px;
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+        }
+
+        .theme-switch i {
+            position: absolute;
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .sun-icon {
+            color: #f59e0b;
+            left: 8px;
+        }
+
+        .moon-icon {
+            color: #60a5fa;
+            right: 8px;
+        }
+
+        .theme-switch.active .sun-icon {
+            transform: translateX(30px);
+        }
+
+        .theme-switch.active .moon-icon {
+            transform: translateX(-30px);
+        }
+
+        .theme-switch.active {
+            background: var(--primary-color);
+        }
+
+        /* Popup Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.active {
+            transform: translateY(0);
+        }
+
+        .greeting-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .modal h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .modal p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .close-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .close-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 4rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 2rem;
+        }
+
+        .avatar-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--primary-color);
+            box-shadow: var(--shadow);
+        }
+
+        .avatar-badge {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            background: var(--primary-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            border: 3px solid var(--bg-primary);
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, var(--primary-color), #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-content .bio {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Sections */
+        section {
+            padding: 3rem 0;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), transparent);
+            border-radius: 3px;
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h3 i {
+            font-size: 1.3rem;
+        }
+
+        /* Education Timeline */
+        .timeline-item {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: var(--primary-color);
+        }
+
+        .timeline-item:after {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 15px;
+            width: 2px;
+            height: calc(100% + 10px);
+            background: var(--border-color);
+        }
+
+        .timeline-item:last-child:after {
+            display: none;
+        }
+
+        .timeline-title {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .timeline-status {
+            display: inline-block;
+            padding: 3px 10px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Music Player */
+        .music-player {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: var(--bg-secondary);
+            border-radius: 15px;
+        }
+
+        .album-art {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            object-fit: cover;
+            box-shadow: var(--shadow);
+        }
+
+        .music-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .music-info p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .play-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-left: auto;
+        }
+
+        .play-btn:hover {
+            background: var(--primary-dark);
+            transform: scale(1.05);
+        }
+
+        .play-btn.playing i:before {
+            content: "\f28b"; /* pause icon */
+        }
+
+        /* Gemini Chat Widget */
+        .gemini-chat-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .gemini-toggle {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #4285f4, #34a853, #fbbc05, #ea4335);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: 3px solid var(--bg-primary);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: gradient-animation 4s ease infinite;
+            background-size: 400% 400%;
+        }
+
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .gemini-toggle:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .gemini-toggle i {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .gemini-chat-container {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            width: 350px;
+            height: 500px;
+            background: var(--bg-card);
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .gemini-chat-container.active {
+            display: flex;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .chat-header {
+            padding: 1rem;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-header h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0;
+        }
+
+        .chat-close {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .message {
+            padding: 10px 15px;
+            border-radius: 15px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+
+        .message.user {
+            background: var(--primary-color);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+
+        .message.assistant {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+
+        .message-image {
+            max-width: 200px;
+            max-height: 150px;
+            border-radius: 10px;
+            margin-top: 5px;
+        }
+
+        .chat-input-container {
+            padding: 1rem;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 25px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .image-upload-btn,
+        .send-btn,
+        .clear-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: var(--primary-color);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-upload-btn:hover,
+        .send-btn:hover,
+        .clear-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .image-upload-input {
+            display: none;
+        }
+
+        .typing-indicator {
+            display: none;
+            padding: 10px 15px;
+            align-self: flex-start;
+        }
+
+        .typing-indicator.active {
+            display: flex;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--text-secondary);
+            border-radius: 50%;
+            margin: 0 2px;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-10px); }
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .music-player {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .play-btn {
+                margin-left: 0;
+            }
+            
+            .gemini-chat-container {
+                width: 300px;
+                height: 450px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gemini-chat-container {
+                width: calc(100vw - 40px);
+                right: -20px;
+                bottom: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Greeting Modal -->
+    <div class="modal-overlay" id="greetingModal">
+        <div class="modal">
+            <div class="greeting-icon" id="greetingIcon">
+                <i class="fas fa-sun"></i>
+            </div>
+            <h2 id="greetingText">Good Morning!</h2>
+            <p>Welcome to my personal profile website. Nice to have you here!</p>
+            <button class="close-btn" id="closeModal">Continue to Profile</button>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Chris Web</span>
+                </div>
+                <div class="theme-switch" id="themeSwitch">
+                    <i class="fas fa-sun sun-icon"></i>
+                    <i class="fas fa-moon moon-icon"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="avatar-container">
+                <img src="https://i.ibb.co/VcXNmpsh/Screenshot-20260117-012651.jpg" alt="Chris A." class="avatar">
+                <div class="avatar-badge">
+                    <i class="fas fa-check"></i>
+                </div>
+            </div>
+            <div class="hero-content">
+                <h1>Christian.</h1>
+                <p class="bio">"Dire gwapo pero waray pangarap"</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- About Section -->
+        <section id="about">
+            <h2 class="section-title">About Me</h2>
+            <div class="cards-container">
+                <div class="card">
+                    <h3><i class="fas fa-gamepad"></i> Hobbies</h3>
+                    <p>• Playing MLBB & Acoustic Guitar</p>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-briefcase"></i> Work Experience</h3>
+                    <p>• N/A</p>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-seedling"></i> Dream Job</h3>
+                    <p>• Farmer in Japan</p>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-map-marker-alt"></i> Address</h3>
+                    <p>• Poblacion Dist. 1 Camansi Burauen, Leyte</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education">
+            <h2 class="section-title">Education</h2>
+            <div class="card">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h4 class="timeline-title">Elementary</h4>
+                        <p>Graduated</p>
+                        <span class="timeline-status">Completed</span>
+                    </div>
+                    <div class="timeline-item">
+                        <h4 class="timeline-title">Junior High School</h4>
+                        <p>Graduated</p>
+                        <span class="timeline-status">Completed</span>
+                    </div>
+                    <div class="timeline-item">
+                        <h4 class="timeline-title">Senior High School</h4>
+                        <p>Currently Enrolled</p>
+                        <span class="timeline-status">Graduating</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Music Section -->
+        <section id="music">
+            <h2 class="section-title">Favorite Music</h2>
+            <div class="card">
+                <h3><i class="fas fa-music"></i> Currently Playing</h3>
+                <div class="music-player">
+                    <img src="https://i.ytimg.com/vi/qHD61OR15r0/hqdefault.jpg" alt="Album Art" class="album-art">
+                    <div class="music-info">
+                        <h4>Title: Passenger Seat</h4>
+                        <p>Artist: Stephen Speaks</p>
+                    </div>
+                    <button class="play-btn" id="playBtn">
+                        <i class="fas fa-play"></i>
+                    </button>
+                </div>
+                <audio id="musicPlayer" loop>
+                    <source src="https://zeta.123tokyo.xyz/get.php/b/e7/qHD61OR15r0.mp3?n=Stephen%20Speaks%20_%20Passenger%20Seat%20-%20The%20Official%20Music%20Video%20%2825th%20Anniversary%20Special%29&uT=R&uN=ZHVieWE%3D&h=orB27qGv822cqt30i2-y-A&s=1768594316&uT=R&uN=ZHVieWE%3D" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Chris A. All rights reserved.</p>
+            <p>Made with <i class="fas fa-heart" style="color: #ef4444;"></i> from the heart</p>
+        </div>
+    </footer>
+
+    <!-- Gemini AI Chat Widget -->
+    <div class="gemini-chat-widget">
+        <div class="gemini-toggle" id="geminiToggle">
+            <i class="fas fa-robot"></i>
+        </div>
+        <div class="gemini-chat-container" id="geminiChat">
+            <div class="chat-header">
+                <h3><i class="fas fa-robot"></i> Gemini AI Assistant</h3>
+                <button class="chat-close" id="chatClose"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="message assistant">
+                    Hello! I'm Google Gemini AI. How can I help you today? You can send me images too!
+                </div>
+            </div>
+            <div class="typing-indicator" id="typingIndicator">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            </div>
+            <div class="chat-input-container">
+                <input type="file" accept="image/*" class="image-upload-input" id="imageUpload">
+                <button class="image-upload-btn" id="imageUploadBtn" title="Upload Image">
+                    <i class="fas fa-image"></i>
+                </button>
+                <input type="text" class="chat-input" id="chatInput" placeholder="Ask me anything...">
+                <button class="send-btn" id="sendBtn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+                <button class="clear-btn" id="clearChatBtn" title="Clear Chat">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const themeSwitch = document.getElementById('themeSwitch');
+        const greetingModal = document.getElementById('greetingModal');
+        const closeModalBtn = document.getElementById('closeModal');
+        const greetingText = document.getElementById('greetingText');
+        const greetingIcon = document.getElementById('greetingIcon');
+        const playBtn = document.getElementById('playBtn');
+        const musicPlayer = document.getElementById('musicPlayer');
+        
+        // Gemini Chat Elements
+        const geminiToggle = document.getElementById('geminiToggle');
+        const geminiChat = document.getElementById('geminiChat');
+        const chatClose = document.getElementById('chatClose');
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const imageUploadBtn = document.getElementById('imageUploadBtn');
+        const imageUpload = document.getElementById('imageUpload');
+        const clearChatBtn = document.getElementById('clearChatBtn');
+        const typingIndicator = document.getElementById('typingIndicator');
+
+        // Gemini API Configuration
+        const GEMINI_API_KEY = 'AIzaSyD4nCP2G-FeyKUirIYSajK6-IfmkuyBLQ8';
+        const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+        
+        // Generate unique user ID
+        let userId = localStorage.getItem('gemini_user_id') || 'user_' + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem('gemini_user_id', userId);
+        
+        // Load conversation from localStorage
+        let conversation = JSON.parse(localStorage.getItem(`gemini_conversation_${userId}`)) || [];
+        
+        // Initialize conversation with system message if empty
+        if (conversation.length === 0) {
+            conversation.push({
+                role: "user",
+                parts: [{ text: "You are Google Gemini AI assistant helping Chris A. on his profile website. Chris is from the Philippines, likes playing MLBB and guitar, dreams of being a farmer in Japan. Be friendly and helpful." }]
+            });
+            conversation.push({
+                role: "model",
+                parts: [{ text: "Hello! I'm Google Gemini AI, ready to help you with anything about Chris A.'s profile or anything else you'd like to know!" }]
+            });
+        }
+
+        // Theme Switching
+        themeSwitch.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            themeSwitch.classList.toggle('active');
+            
+            // Save theme preference
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDarkMode);
+        });
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('darkMode');
+        if (savedTheme === 'true') {
+            document.body.classList.add('dark-mode');
+            themeSwitch.classList.add('active');
+        }
+
+        // Greeting based on time (GMT+8)
+        function getGreeting() {
+            const now = new Date();
+            const hours = now.getUTCHours() + 8; // GMT+8
+            const adjustedHours = hours % 24;
+            
+            if (adjustedHours >= 5 && adjustedHours < 12) {
+                return {
+                    text: "Good Morning! ☀️",
+                    icon: "fas fa-sun",
+                    color: "#f59e0b"
+                };
+            } else if (adjustedHours >= 12 && adjustedHours < 18) {
+                return {
+                    text: "Good Afternoon! 🌤️",
+                    icon: "fas fa-cloud-sun",
+                    color: "#3b82f6"
+                };
+            } else {
+                return {
+                    text: "Good Evening! 🌙",
+                    icon: "fas fa-moon",
+                    color: "#8b5cf6"
+                };
+            }
+        }
+
+        // Show greeting modal
+        function showGreeting() {
+            const greeting = getGreeting();
+            greetingText.textContent = greeting.text;
+            greetingIcon.innerHTML = `<i class="${greeting.icon}"></i>`;
+            greetingIcon.style.color = greeting.color;
+            
+            // Check if modal was shown before
+            const modalShown = localStorage.getItem('greetingShown');
+            if (!modalShown) {
+                setTimeout(() => {
+                    greetingModal.classList.add('active');
+                    document.querySelector('.modal').classList.add('active');
+                    localStorage.setItem('greetingShown', 'true');
+                }, 500);
+            }
+        }
+
+        // Close modal
+        closeModalBtn.addEventListener('click', () => {
+            greetingModal.classList.remove('active');
+            document.querySelector('.modal').classList.remove('active');
+        });
+
+        // Music player control
+        playBtn.addEventListener('click', () => {
+            if (musicPlayer.paused) {
+                musicPlayer.play();
+                playBtn.classList.add('playing');
+            } else {
+                musicPlayer.pause();
+                playBtn.classList.remove('playing');
+            }
+        });
+
+        // Gemini Chat Functions
+        geminiToggle.addEventListener('click', () => {
+            geminiChat.classList.toggle('active');
+            if (geminiChat.classList.contains('active')) {
+                chatInput.focus();
+                loadChatMessages();
+            }
+        });
+
+        chatClose.addEventListener('click', () => {
+            geminiChat.classList.remove('active');
+        });
+
+        imageUploadBtn.addEventListener('click', () => {
+            imageUpload.click();
+        });
+
+        imageUpload.addEventListener('change', async (e) => {
+            if (e.target.files.length > 0) {
+                const file = e.target.files[0];
+                await uploadAndSendImage(file);
+                e.target.value = ''; // Reset file input
+            }
+        });
+
+        async function uploadAndSendImage(file) {
+            // Convert image to base64
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            
+            reader.onload = async () => {
+                const base64Image = reader.result.split(',')[1];
+                
+                // Add image to conversation
+                addMessage('user', 'Image uploaded', base64Image);
+                
+                // Send to Gemini
+                await sendToGemini('Describe this image', base64Image);
+            };
+        }
+
+        function addMessage(role, text, imageBase64 = null) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${role}`;
+            
+            if (imageBase64) {
+                messageDiv.innerHTML = `
+                    <p>${text}</p>
+                    <img src="data:image/jpeg;base64,${imageBase64}" class="message-image" alt="Uploaded image">
+                `;
+            } else {
+                messageDiv.textContent = text;
+            }
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            // Save to conversation
+            const messageData = {
+                role: role === 'user' ? 'user' : 'model',
+                parts: [{ text: text }]
+            };
+            
+            if (imageBase64 && role === 'user') {
+                messageData.parts.push({
+                    inline_data: {
+                        mime_type: 'image/jpeg',
+                        data: imageBase64
+                    }
+                });
+            }
+            
+            conversation.push(messageData);
+            saveConversation();
+        }
+
+        async function sendToGemini(message, imageBase64 = null) {
+            try {
+                // Show typing indicator
+                typingIndicator.classList.add('active');
+                
+                // Prepare request data
+                const contents = conversation.map(msg => ({
+                    role: msg.role,
+                    parts: msg.parts
+                }));
+                
+                // Add current message
+                const currentParts = [{ text: message }];
+                if (imageBase64) {
+                    currentParts.push({
+                        inline_data: {
+                            mime_type: 'image/jpeg',
+                            data: imageBase64
+                        }
+                    });
+                }
+                
+                contents.push({
+                    role: "user",
+                    parts: currentParts
+                });
+                
+                const response = await fetch(GEMINI_API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        contents: contents,
+                        generationConfig: {
+                            temperature: 0.7,
+                            maxOutputTokens: 1000,
+                        }
+                    })
+                });
+                
+                const data = await response.json();
+                
+                // Hide typing indicator
+                typingIndicator.classList.remove('active');
+                
+                if (data.error) {
+                    throw new Error(data.error.message);
+                }
+                
+                const geminiResponse = data.candidates?.[0]?.content?.parts?.[0]?.text || "I apologize, but I couldn't generate a response.";
+                
+                // Add Gemini's response
+                addMessage('assistant', geminiResponse);
+                
+                // Save to conversation
+                conversation.push({
+                    role: "model",
+                    parts: [{ text: geminiResponse }]
+                });
+                saveConversation();
+                
+            } catch (error) {
+                typingIndicator.classList.remove('active');
+                console.error('Gemini API Error:', error);
+                addMessage('assistant', `Sorry, I encountered an error: ${error.message}`);
+            }
+        }
+
+        function saveConversation() {
+            // Keep only last 20 messages to avoid localStorage limits
+            if (conversation.length > 20) {
+                conversation = conversation.slice(-20);
+            }
+            localStorage.setItem(`gemini_conversation_${userId}`, JSON.stringify(conversation));
+        }
+
+        function loadChatMessages() {
+            chatMessages.innerHTML = '';
+            
+            // Load all messages except the system prompt
+            for (let i = 2; i < conversation.length; i++) {
+                const msg = conversation[i];
+                if (msg.role === 'user') {
+                    const text = msg.parts[0]?.text || '';
+                    const hasImage = msg.parts.length > 1 && msg.parts[1]?.inline_data;
+                    
+                    if (hasImage) {
+                        addMessage('user', text, msg.parts[1].inline_data.data);
+                    } else {
+                        addMessage('user', text);
+                    }
+                } else if (msg.role === 'model') {
+                    addMessage('assistant', msg.parts[0]?.text || '');
+                }
+            }
+        }
+
+        function clearChat() {
+            conversation = [
+                {
+                    role: "user",
+                    parts: [{ text: "You are Google Gemini AI assistant helping Chris A. on his profile website. Chris is from the Philippines, likes playing MLBB and guitar, dreams of being a farmer in Japan. Be friendly and helpful." }]
+                },
+                {
+                    role: "model",
+                    parts: [{ text: "Hello! I'm Google Gemini AI, ready to help you with anything about Chris A.'s profile or anything else you'd like to know!" }]
+                }
+            ];
+            saveConversation();
+            chatMessages.innerHTML = `
+                <div class="message assistant">
+                    Hello! I'm Google Gemini AI. How can I help you today? You can send me images too!
+                </div>
+            `;
+        }
+
+        // Event Listeners for Chat
+        sendBtn.addEventListener('click', async () => {
+            const message = chatInput.value.trim();
+            if (message) {
+                addMessage('user', message);
+                chatInput.value = '';
+                await sendToGemini(message);
+            }
+        });
+
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendBtn.click();
+            }
+        });
+
+        clearChatBtn.addEventListener('click', clearChat);
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            showGreeting();
+            
+            // Load chat messages on page load
+            loadChatMessages();
+            
+            // Auto-play music (optional)
+            // musicPlayer.play().then(() => {
+            //     playBtn.classList.add('playing');
+            // }).catch(err => {
+            //     console.log("Autoplay prevented:", err);
+            // });
+        });
+
+        // Handle audio events
+        musicPlayer.addEventListener('play', () => {
+            playBtn.classList.add('playing');
+        });
+
+        musicPlayer.addEventListener('pause', () => {
+            playBtn.classList.remove('playing');
+        });
+
+        // Close modal when clicking outside
+        greetingModal.addEventListener('click', (e) => {
+            if (e.target === greetingModal) {
+                greetingModal.classList.remove('active');
+                document.querySelector('.modal').classList.remove('active');
+            }
+        });
+
+        // Close chat when clicking outside (on mobile)
+        document.addEventListener('click', (e) => {
+            if (!geminiChat.contains(e.target) && !geminiToggle.contains(e.target) && geminiChat.classList.contains('active')) {
+                geminiChat.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
